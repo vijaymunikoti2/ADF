@@ -1,0 +1,81 @@
+{
+	"name": "Pivot",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "salesDataSet",
+						"type": "DatasetReference"
+					},
+					"name": "salescsv"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText3",
+						"type": "DatasetReference"
+					},
+					"name": "sink1",
+					"rejectedDataLinkedService": {
+						"referenceName": "LS_AccessToBlob",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [
+				{
+					"name": "pivot"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          OrderDate as string,",
+				"          Category as string,",
+				"          City as string,",
+				"          Country as string,",
+				"          CustomerName as string,",
+				"          Discount as string,",
+				"          OrderID as string,",
+				"          PostalCode as string,",
+				"          ProductName as string,",
+				"          Profit as string,",
+				"          Quantity as string,",
+				"          Region as string,",
+				"          Sales as string,",
+				"          Segment as string,",
+				"          ShipDate as string,",
+				"          ShipMode as string,",
+				"          State as string,",
+				"          Sub_Category as string,",
+				"          DaystoShipActual as string,",
+				"          SalesForecast as string,",
+				"          ShipStatus as string,",
+				"          DaystoShipScheduled as string,",
+				"          OrderProfitable as string,",
+				"          SalesperCustomer as string,",
+				"          ProfitRatio as string,",
+				"          SalesaboveTarget as string,",
+				"          latitude as string,",
+				"          longitude as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> salescsv",
+				"salescsv pivot(groupBy(CustomerName),",
+				"     pivotBy(Category),",
+				"     category = countDistinct(Category),",
+				"     columnNaming: '$N$V',",
+				"     lateral: true) ~> pivot",
+				"pivot sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     dateFormat:'MM/dd/yyyy',",
+				"     timestampFormat:'MM/dd/yyyy',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
+			]
+		}
+	}
+}
