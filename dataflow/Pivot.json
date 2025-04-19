@@ -1,5 +1,5 @@
 {
-	"name": "dataflow2",
+	"name": "Pivot",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
