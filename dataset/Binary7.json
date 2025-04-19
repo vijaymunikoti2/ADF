@@ -1,0 +1,17 @@
+{
+	"name": "Binary7",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_AccessToBlob",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "zipcontainer"
+			}
+		}
+	}
+}
