@@ -1,0 +1,6 @@
+{
+	"name": "salesIR-SELFHOSTED",
+	"properties": {
+		"type": "SelfHosted"
+	}
+}
