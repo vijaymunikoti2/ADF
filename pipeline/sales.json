@@ -138,9 +138,9 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "SalesDFT",
+						"activity": "azure sql to onprem sql",
 						"dependencyConditions": [
-							"Completed"
+							"Succeeded"
 						]
 					}
 				],
@@ -188,6 +188,59 @@
 				"outputs": [
 					{
 						"referenceName": "FinaldatasetLake",
+						"type": "DatasetReference"
+					}
+				]
+			},
+			{
+				"name": "azure sql to onprem sql",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "SalesDFT",
+						"dependencyConditions": [
+							"Completed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "SqlServerSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "AzureSqlTable4",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SqlServerTable1",
 						"type": "DatasetReference"
 					}
 				]

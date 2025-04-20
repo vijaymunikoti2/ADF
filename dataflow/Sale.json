@@ -92,8 +92,7 @@
 				"          OrderDate,",
 				"          CustomerID,",
 				"          ProductName = Product,",
-				"          RegionName,",
-				"          CleanedDate = blob@RegionID",
+				"          RegionName",
 				"     )) ~> sink1"
 			]
 		}
