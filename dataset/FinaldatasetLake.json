@@ -11,10 +11,9 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": {
-					"value": "concat('Sales_', formatDateTime(utcNow(), 'yyyy-MM-dd'), '.csv')",
+					"value": "concat('Sales_', formatDateTime(utcNow(), 'yyyy-MM-dd'), '.csv')\n",
 					"type": "Expression"
 				},
-				"folderPath": "ouput",
 				"fileSystem": "lakecontainer"
 			},
 			"columnDelimiter": ",",

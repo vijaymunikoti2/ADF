@@ -140,7 +140,7 @@
 					{
 						"activity": "azure sql to onprem sql",
 						"dependencyConditions": [
-							"Succeeded"
+							"Completed"
 						]
 					}
 				],
