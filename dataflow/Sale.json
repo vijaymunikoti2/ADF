@@ -1,0 +1,100 @@
+{
+	"name": "Sale",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText6",
+						"type": "DatasetReference"
+					},
+					"name": "datalake"
+				},
+				{
+					"dataset": {
+						"referenceName": "Blob_region",
+						"type": "DatasetReference"
+					},
+					"name": "blob"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "SqlServerTable1",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "join1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          OrderID as string,",
+				"          OrderDate as string,",
+				"          RegionID as string,",
+				"          CustomerID as string,",
+				"          Product as string,",
+				"          Quantity as string,",
+				"          Price as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> datalake",
+				"source(output(",
+				"          RegionID as string,",
+				"          RegionName as string,",
+				"          Manager as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> blob",
+				"datalake, blob join(datalake@RegionID == blob@RegionID,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> join1",
+				"join1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          SalesID as integer,",
+				"          OrderID as string,",
+				"          OrderDate as date,",
+				"          CustomerID as string,",
+				"          ProductName as string,",
+				"          Category as string,",
+				"          SubCategory as string,",
+				"          Quantity as integer,",
+				"          UnitPrice as decimal(10,2),",
+				"          TotalAmount as decimal(21,2),",
+				"          RegionCode as string,",
+				"          RegionName as string,",
+				"          Country as string,",
+				"          Segment as string,",
+				"          CleanedDate as timestamp",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          SalesID = CustomerID,",
+				"          OrderID,",
+				"          OrderDate,",
+				"          CustomerID,",
+				"          ProductName = Product,",
+				"          RegionName,",
+				"          CleanedDate = blob@RegionID",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}

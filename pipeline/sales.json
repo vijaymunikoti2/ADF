@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Get Metadata1",
+				"name": "Get File last modified date",
 				"type": "GetMetadata",
 				"dependsOn": [],
 				"policy": {
@@ -24,6 +24,7 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
+						"recursive": true,
 						"modifiedDatetimeEnd": {
 							"value": "@adddays(utcNow(),-7)",
 							"type": "Expression"
@@ -36,11 +37,11 @@
 				}
 			},
 			{
-				"name": "Copy data1",
+				"name": "Blob to data lake",
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Get Metadata1",
+						"activity": "Get File last modified date",
 						"dependencyConditions": [
 							"Completed"
 						]
