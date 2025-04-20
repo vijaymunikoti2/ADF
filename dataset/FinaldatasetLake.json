@@ -1,0 +1,27 @@
+{
+	"name": "FinaldatasetLake",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "concat('Sales_', formatDateTime(utcNow(), 'yyyy-MM-dd'), '.csv')\n",
+					"type": "Expression"
+				},
+				"folderPath": "ouput",
+				"fileSystem": "lakecontainer"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}

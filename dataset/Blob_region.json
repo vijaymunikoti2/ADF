@@ -1,0 +1,36 @@
+{
+	"name": "Blob_region",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_AccessToBlob",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Region_Metadata (1).csv",
+				"container": "saleprojectcontainer"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "RegionID",
+				"type": "String"
+			},
+			{
+				"name": "RegionName",
+				"type": "String"
+			},
+			{
+				"name": "Manager",
+				"type": "String"
+			}
+		]
+	}
+}

@@ -1,5 +1,5 @@
 {
-	"name": "integrationRuntime1",
+	"name": "salesIR-SELFHOSTED",
 	"properties": {
 		"type": "SelfHosted"
 	}
