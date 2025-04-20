@@ -1,5 +1,5 @@
 {
-	"name": "DelimitedText6",
+	"name": "Salesblob",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "LS_AccessToBlob",
