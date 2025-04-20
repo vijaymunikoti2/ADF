@@ -87,7 +87,6 @@
 				"     skipDuplicateMapOutputs: true,",
 				"     errorHandlingOption: 'stopOnFirstError',",
 				"     mapColumn(",
-				"          SalesID = CustomerID,",
 				"          OrderID,",
 				"          OrderDate,",
 				"          CustomerID,",
