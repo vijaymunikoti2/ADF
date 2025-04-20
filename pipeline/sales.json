@@ -123,7 +123,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "SCD_DFT",
+						"referenceName": "Sale",
 						"type": "DataFlowReference"
 					},
 					"compute": {
